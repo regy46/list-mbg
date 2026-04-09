@@ -1,0 +1,105 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Document ID: {uid}
+    // Fields:
+    //   - uid: string (required)
+    //   - email: string (required)
+    //   - displayName: string
+    //   - role: string (required, 'teacher' | 'admin')
+    //   - createdAt: timestamp
+    //
+    // Collection: classes
+    // Document ID: {classId}
+    // Fields:
+    //   - className: string (required)
+    //   - studentCount: number (required)
+    //   - isFilled: bool (required)
+    //   - lastUpdatedBy: string (uid)
+    //   - lastUpdatedByName: string
+    //   - updatedAt: timestamp
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        (
+          (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin') ||
+          (request.auth.token.email in ["egimmm12@gmail.com", "admin@mbg.app"])
+        );
+    }
+
+    function isTeacher() {
+      return isAuthenticated();
+    }
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'email', 'role']) &&
+             data.uid is string &&
+             data.email is string &&
+             data.role in ['teacher', 'admin'];
+    }
+
+    function isValidClass(data) {
+      return data.keys().hasAll(['className', 'studentCount', 'isFilled', 'date']) &&
+             data.className is string && data.className.size() > 0 &&
+             data.studentCount is number && data.studentCount >= 0 &&
+             data.isFilled is bool &&
+             data.date is string && data.date.matches("^\\d{4}-\\d{2}-\\d{2}$");
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isOwner(userId) && isValidUser(request.resource.data) && 
+                      (request.resource.data.role == 'teacher' || (request.resource.data.role == 'admin' && request.auth.token.email in ["egimmm12@gmail.com", "admin@mbg.app"]));
+      allow update: if (isOwner(userId) && isValidUser(request.resource.data) && request.resource.data.role == resource.data.role) || isAdmin();
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+
+    match /classes/{classId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidClass(request.resource.data);
+      allow update: if isAuthenticated() && 
+                      isValidClass(request.resource.data) &&
+                      (resource.data.isFilled == false || resource.data.lastUpdatedBy == request.auth.uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    match /messages/{messageId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && 
+                      request.resource.data.keys().hasAll(['text', 'senderId', 'senderName', 'createdAt']) &&
+                      request.resource.data.text is string && request.resource.data.text.size() > 0 &&
+                      request.resource.data.text.size() < 1000 &&
+                      request.resource.data.senderId == request.auth.uid;
+      allow update: if isAuthenticated() && 
+                      resource.data.senderId == request.auth.uid &&
+                      request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'isEdited', 'updatedAt']) &&
+                      request.resource.data.text is string && request.resource.data.text.size() > 0 &&
+                      request.resource.data.text.size() < 1000;
+      allow delete: if isAdmin();
+    }
+  }
+}

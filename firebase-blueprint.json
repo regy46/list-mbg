@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Profil guru yang terdaftar dalam aplikasi.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["teacher", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "ClassMBG": {
+      "title": "Class MBG",
+      "description": "Data Makan Bergizi Gratis per kelas.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "ID Kelas (e.g., X-TKJ-A)" },
+        "className": { "type": "string" },
+        "studentCount": { "type": "number" },
+        "isFilled": { "type": "boolean" },
+        "date": { "type": "string", "format": "date", "description": "YYYY-MM-DD" },
+        "lastUpdatedBy": { "type": "string", "description": "UID guru terakhir yang update" },
+        "lastUpdatedByName": { "type": "string" },
+        "lastUpdatedByPhoto": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["className", "studentCount", "isFilled"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "User",
+      "description": "Data profil guru."
+    },
+    "/classes/{classId}": {
+      "schema": "ClassMBG",
+      "description": "Data MBG per kelas."
+    }
+  }
+}
