@@ -5,9 +5,7 @@ import {
   createUserWithEmailAndPassword, 
   signOut,
   deleteUser,
-  User as FirebaseUser,
-  GoogleAuthProvider,
-  signInWithPopup
+  User as FirebaseUser
 } from 'firebase/auth';
 import { 
   doc, 
@@ -305,56 +303,6 @@ export default function App() {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, view]);
-
-  const handleGoogleLogin = async () => {
-    if (isAuthProcessing) return;
-    setIsAuthProcessing(true);
-    const provider = new GoogleAuthProvider();
-    try {
-      const res = await signInWithPopup(auth, provider);
-      
-      // Auto-Admin for the owner
-      if (res.user.email === 'egimmm12@gmail.com' || res.user.email === 'admin@mbg.app') {
-        const userRef = doc(db, 'users', res.user.uid);
-        const userSnap = await getDoc(userRef);
-        
-        if (!userSnap.exists() || userSnap.data().role !== 'admin') {
-          const role = 'admin';
-          const profileData = {
-            uid: res.user.uid,
-            email: res.user.email || '',
-            displayName: res.user.displayName || 'Administrator MBG',
-            photoURL: res.user.photoURL || '',
-            role: role as 'admin'
-          };
-          
-          await setDoc(userRef, {
-            ...profileData,
-            createdAt: serverTimestamp()
-          }, { merge: true });
-          
-          setProfile(profileData);
-          setView('admin');
-        } else {
-          // If already admin, still set the view
-          setView('admin');
-        }
-      }
-      
-      toast.success("Berhasil masuk dengan Google!");
-    } catch (error: any) {
-      if (error.code === 'auth/popup-blocked') {
-        toast.error("Popup diblokir oleh browser. Silakan izinkan popup untuk login.");
-      } else if (error.code === 'auth/cancelled-popup-request') {
-        // User closed the popup or multiple requests
-      } else {
-        console.error("Google Auth Error:", error);
-        toast.error("Gagal login Google: " + error.message);
-      }
-    } finally {
-      setIsAuthProcessing(false);
-    }
-  };
 
   const handleAuth = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -782,27 +730,6 @@ export default function App() {
                       {isRegistering ? 'Daftar Sekarang' : 'Masuk'}
                     </button>
                   </form>
-
-                  <div className="mt-6 flex items-center gap-4">
-                    <div className="flex-1 h-px bg-slate-100"></div>
-                    <span className="text-xs text-slate-400 font-medium uppercase tracking-wider">Atau</span>
-                    <div className="flex-1 h-px bg-slate-100"></div>
-                  </div>
-
-                  <button 
-                    onClick={handleGoogleLogin}
-                    disabled={isAuthProcessing}
-                    className="w-full mt-6 flex items-center justify-center gap-3 bg-white border border-slate-200 text-slate-700 py-2.5 rounded-lg font-semibold hover:bg-slate-50 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isAuthProcessing ? (
-                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-indigo-600"></div>
-                    ) : (
-                      <>
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-5 h-5" alt="Google" referrerPolicy="no-referrer" />
-                        <span>Masuk dengan Google</span>
-                      </>
-                    )}
-                  </button>
 
                   <div className="mt-6 text-center">
                     <button 
