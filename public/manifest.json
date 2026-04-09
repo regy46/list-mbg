@@ -8,13 +8,43 @@
   "theme_color": "#4f46e5",
   "icons": [
     {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/600px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/72px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/96px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/128px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/144px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/152px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/192px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/600px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/384px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/512px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

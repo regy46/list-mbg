@@ -700,12 +700,7 @@ export default function App() {
           <nav className="bg-white border-b border-slate-200 sticky top-0 z-10">
             <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
               <div className="flex items-center gap-2 font-bold text-xl text-indigo-600">
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/600px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png" 
-                  alt="Logo" 
-                  className="w-8 h-8 object-contain"
-                  referrerPolicy="no-referrer"
-                />
+                <ClipboardList className="w-6 h-6" />
                 <span>MBG List</span>
               </div>
               <div className="flex items-center gap-4">
