@@ -8,15 +8,15 @@
   "theme_color": "#4f46e5",
   "icons": [
     {
-      "src": "https://api.dicebear.com/7.x/shapes/svg?seed=mbg&backgroundColor=4f46e5",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/600px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://api.dicebear.com/7.x/shapes/svg?seed=mbg&backgroundColor=4f46e5",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png/600px-Seal_of_the_National_Nutrition_Agency_of_the_Republic_of_Indonesia.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
